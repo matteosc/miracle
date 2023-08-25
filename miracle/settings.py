@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'supply.apps.SupplyConfig',
     'cousine.apps.CousineConfig',
     'personnel.apps.PersonnelConfig',
-    'restaurant.apps.RestaurantConfig'
+    'restaurant.apps.RestaurantConfig',
+    'preparations.apps.PreparationsConfig',
 ]
 
 MIDDLEWARE = [
