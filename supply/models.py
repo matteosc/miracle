@@ -33,7 +33,8 @@ class Article(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
     unitaArrivo = models.IntegerField()
-    giacenza = models.FloatField()
+    giacenza_in_gr = models.FloatField()
+    prezzo_al_kg= models.FloatField()
 
 
 class Invoice(models.Model):

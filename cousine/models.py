@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from django.urls import reverse
 from django.db import models
 
 from personnel.models import Personnel
@@ -38,8 +38,17 @@ class Ingredient(models.Model):
     class meta:
         ordering = ["name"]
 
+    def get_absolute_url(self):
+        return reverse("ingredient-detail", kwargs={'pk':self.id})
+
     def __str__(self):
-        return self.name + ' (' + self.category.name + ')'
+        return self.name
+
+    @property
+    def get_giacenza(self):
+        return 1000
+
+
 
 
 

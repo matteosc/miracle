@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,12 +20,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5gf4x$y0(7b2i=0@0i21zg@u9t$6zfve-%8$=$uj*lod43=)##'
+
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', ' fu(5jc^jpz(ujn)qaen4t%dxnb!17clby8w!wt3fzjllj5cdhi')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = str(os.environ.get('DEBUG'))=="1" #TRUE
 
 ALLOWED_HOSTS = []
+if not DEBUG:
+    ALLOWED_HOSTS+=[os.environ.get('DJANGO_ALLOWED_HOSTS')]
+
 
 # Application definition
 
@@ -35,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #third part
+    "django_htmx",
+
 
     # own apps
     'stock.apps.StockConfig',
@@ -54,6 +63,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_htmx.middleware.HtmxMiddleware",
+
 ]
 
 ROOT_URLCONF = 'miracle.urls'
@@ -120,7 +131,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = [BASE_DIR / "static"]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
