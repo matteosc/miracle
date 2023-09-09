@@ -1,6 +1,6 @@
 from django.db import models
 
-from cousine.models import Recipe
+from recipes.models import Recipe
 from supply.models import Article
 
 

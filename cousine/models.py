@@ -31,9 +31,9 @@ class Nutritionals(models.Model):
     starch = models.FloatField()
 
 class Ingredient(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    nutritional = models.OneToOneField(Nutritionals,  on_delete=models.CASCADE)
+    nutritional = models.OneToOneField(Nutritionals,  on_delete=models.CASCADE, null=True, blank=True)
 
     class meta:
         ordering = ["name"]
@@ -71,18 +71,4 @@ class VociOrdineCucina(models.Model):
     um= models.CharField(max_length=20)
     quantity = models.FloatField()
     note= models.TextField()
-
-class Recipe(models.Model):
-    name= models.CharField(max_length=80)
-    servings= models.IntegerField()
-    directions= models.TextField()
-    createdOn= models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
-
-class RecipeItem(models.Model):
-    recipe= models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.SET_NULL, null=True)
-    quantityInGrOrMl= models.FloatField()
 

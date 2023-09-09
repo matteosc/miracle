@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <a href="{% url 'ingredient-edit' object.id %}">edit</a>
 {{ object.name }} - giacenza: {{ object.get_giacenza }}
+calorie {{ object.nutritional.calories }}<br>
+    calorie {{ object.nutritional.calories }}<br>
+    carbo {{ object.nutritional.carbohydrates }}<br>
+    proteine {{ object.nutritional.proteins }}<br>
+    grassi {{ object.nutritional.fat}}<br>
+    amidi {{ object.nutritional.starch }}<br>
 
 {% endblock content %}
 

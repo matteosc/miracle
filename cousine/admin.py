@@ -1,16 +1,18 @@
 from django.contrib import admin
 
-from cousine.models import Category, Ingredient, OrdineCucina, VociOrdineCucina, Recipe, RecipeItem
+from cousine.models import Category, Ingredient, OrdineCucina, VociOrdineCucina
+from recipes.models import Recipe, RecipeItem
 
 
 class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']
     def get_ordering(self, request):
-        return ['name']  # sort case insensitive
+        return ['id']  # sort case insensitive
 
 admin.site.register(Category, CategoryAdmin)
 
 class IngredientAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name']
+    list_display = ['id', 'name', 'category']
     search_fields = ['name']
     def get_ordering(self, request):
         return ['name']  # sort case insensitive

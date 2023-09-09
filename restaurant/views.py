@@ -1,8 +1,11 @@
 from django.shortcuts import render
-import os
-from supply.models import Article
-from cousine.models import Ingredient
-from utilities.import_tools import import_articles,import_categories,import_ingredients,import_suppliers
+from utils.import_tools import import_articles, setprice
+import speech_recognition
+import pyttsx3
+
+
+
+
 def home(request):
     """
     function respond to website rootHTTP request
@@ -10,6 +13,9 @@ def home(request):
     :param request:
     :return: index.html no db data yet
     """
+
+
+
 
     context={}
     return render(request, "restaurant/home.html", context)

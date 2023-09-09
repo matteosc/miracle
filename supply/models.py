@@ -21,8 +21,8 @@ class Contatto(models.Model):
 
 class Supplier(models.Model):
     name = models.CharField(max_length=30)
-    indirizzo = models.OneToOneField(Indirizzo, related_name='indirizzo', on_delete=models.CASCADE, null=True)
-    contatto = models.OneToOneField(Contatto, related_name='contatto', on_delete=models.CASCADE, null=True)
+    indirizzo = models.OneToOneField(Indirizzo, related_name='indirizzo', on_delete=models.CASCADE, null=True, blank=True)
+    contatto = models.OneToOneField(Contatto, related_name='contatto', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -34,7 +34,15 @@ class Article(models.Model):
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
     unitaArrivo = models.IntegerField()
     giacenza_in_gr = models.FloatField()
-    prezzo_al_kg= models.FloatField()
+    prezzo_unita_arrivo= models.FloatField()
+    @property
+    def prezzoAlGrammo(self):
+        return self.prezzo_unita_arrivo/self.unitaArrivo
+
+
+    @property
+    def prezzoAlKilo(self):
+        return self.prezzo_unita_arrivo/self.unitaArrivo*1000
 
 
 class Invoice(models.Model):
@@ -59,7 +67,7 @@ class ArrivoFood(models.Model):
     quantity = models.FloatField()
     price = models.FloatField()
     conforme = models.BooleanField(default=True)
-    scadenza = models.DateField()
+    scadenza = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return self.incomingdate.strftime(

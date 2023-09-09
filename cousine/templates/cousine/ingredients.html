@@ -1,15 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-            <ol>
-                {% for ingredient in ingredients %}
-                  <li>
-                      <a href="{{ ingredient.get_absolute_url }}">{{ ingredient.name }}</a>
-                  </li>
+    <div class="row">
+        <div class="col-4">
+            <ul>
+          <li><a href="{% url 'ingredient-main' %}" class="btn btn-sm btn-primary">ALL</a> </li>
+                {% for cat in categories %}
+                    <li>
+                        <a href="{% url 'category-ingredients' cat.id %}" class="btn btn-sm ">{{ cat.name }}   </a>
+                    </li>
                 {% endfor %}
 
 
-            </ol>
+            </ul>
+        </div>
+    <div class="col">
+        {% if category %}
+         <h4>
+             {{ category.name }}
+         </h4>
+         {% else %}
+            <h4>
+               All Ingredients
+            </h4>
+        {% endif %}
+        <ol>
+            {% for ingredient in ingredients %}
+                <li>
+                    <a href="{{ ingredient.get_absolute_url }}">{{ ingredient.name }}</a>- {{ ingredient.category.name }}<a href="{% url 'ingredient-edit' ingredient.id %}">edit</a>
+                </li>
+            {% endfor %}
+
+
+        </ol>
+    </div>
+    </div>
+
 
 
 

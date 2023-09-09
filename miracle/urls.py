@@ -23,6 +23,7 @@ from accounts.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('pantry/recipes/', include('recipes.urls')),
     path('registration/', registration_view),
     path('cousine/', include('cousine.urls')),
     path('supply/', include('supply.urls')),
